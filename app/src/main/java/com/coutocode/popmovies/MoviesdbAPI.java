@@ -6,10 +6,10 @@ import retrofit2.http.Query;
 
 public interface MoviesdbAPI {
 
-    @GET("/movie/popular")
+    @GET("movie/popular")
     Call<MovieResponse> getMostPopularMovies(@Query("api_key") String key);
 
-    @GET("/movie/popular")
+    @GET("movie/top_rated")
     Call<MovieResponse> getMostHighestRatedMovies(@Query("api_key") String key);
 
 }
