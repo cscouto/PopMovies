@@ -5,7 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder>{
+
+    ArrayList<Movie> movies;
+
+    PosterAdapter(ArrayList<Movie> movies){
+        this.movies = movies;
+    }
 
     @NonNull
     @Override
@@ -20,13 +28,17 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return movies.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewHolder(View itemView) {
             super(itemView);
+        }
+
+        public void onBindView(Movie movie){
+
         }
     }
 }
