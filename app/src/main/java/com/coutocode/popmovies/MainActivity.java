@@ -1,5 +1,6 @@
 package com.coutocode.popmovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,10 +22,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PosterAdapter.ItemClick {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private MoviesService moviesService;
 
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        progressBar.setVisibility(View.VISIBLE);
         callPopularMovies();
     }
 
@@ -56,9 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.action_most_popular:
+                progressBar.setVisibility(View.VISIBLE);
                 callPopularMovies();
                 return true;
             case  R.id.action_highest_rated:
+                progressBar.setVisibility(View.VISIBLE);
                 callHighestRatedMovies();
                 return true;
 
@@ -68,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(ArrayList<Movie> movies){
+        progressBar.setVisibility(View.GONE);
         PosterAdapter adapter = new PosterAdapter(movies);
+        adapter.delegate = this;
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this,
                         R.string.request_failed, Toast.LENGTH_LONG).show();
             }
@@ -108,9 +118,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this,
                         R.string.request_failed, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void clickedItem(Movie movie) {
+        Intent intentToDetail = new Intent(this, DetailActivity.class);
+        intentToDetail.putExtra(Constants.DETAIL_EXTRA_KEY, movie);
+        startActivity(intentToDetail);
     }
 }

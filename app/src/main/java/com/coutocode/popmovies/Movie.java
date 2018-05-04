@@ -1,8 +1,13 @@
 package com.coutocode.popmovies;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Movie {
+@SuppressLint("ParcelCreator")
+public class Movie implements Parcelable {
     int id;
     boolean video;
     float vote_average;
@@ -34,5 +39,53 @@ public class Movie {
         this.adult = adult;
         this.overview = overview;
         this.release_date = release_date;
+    }
+
+    protected Movie(Parcel in) {
+        id = in.readInt();
+        video = in.readByte() != 0;
+        vote_average = in.readFloat();
+        title = in.readString();
+        popularity = in.readDouble();
+        poster_path = in.readString();
+        original_language = in.readString();
+        original_title = in.readString();
+        backdrop_path = in.readString();
+        adult = in.readByte() != 0;
+        overview = in.readString();
+        release_date = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeByte((byte) (video ? 1 : 0));
+        dest.writeFloat(vote_average);
+        dest.writeString(title);
+        dest.writeDouble(popularity);
+        dest.writeString(poster_path);
+        dest.writeString(original_language);
+        dest.writeString(original_title);
+        dest.writeString(backdrop_path);
+        dest.writeByte((byte) (adult ? 1 : 0));
+        dest.writeString(overview);
+        dest.writeString(release_date);
     }
 }

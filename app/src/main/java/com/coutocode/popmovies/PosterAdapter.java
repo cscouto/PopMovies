@@ -19,7 +19,12 @@ import static com.coutocode.popmovies.Constants.IMAGE_SIZE_500;
 
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder>{
 
+    interface ItemClick {
+        void clickedItem(Movie movie);
+    }
+
     ArrayList<Movie> movies;
+    ItemClick delegate;
 
     PosterAdapter(ArrayList<Movie> movies){
         this.movies = movies;
@@ -52,11 +57,20 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(Movie movie){
+        public void bindView(final Movie movie){
             String path = IMAGE_BASE_URL + IMAGE_SIZE_500 + movie.poster_path;
             Picasso.with(itemView.getContext())
                     .load(path)
                     .into(imageViewPoster);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (delegate != null){
+                        delegate.clickedItem(movie);
+                    }
+                }
+            });
         }
     }
 }
