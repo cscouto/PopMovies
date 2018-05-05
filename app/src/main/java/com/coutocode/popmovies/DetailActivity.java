@@ -43,6 +43,8 @@ public class DetailActivity extends AppCompatActivity {
         String path = IMAGE_BASE_URL + IMAGE_SIZE_500 + movie.poster_path;
         Picasso.with(this)
                 .load(path)
+                .placeholder(R.drawable.noimage)
+                .error(R.drawable.noimage)
                 .into(imageViewPoster);
         textViewTitle.setText(movie.title);
         textViewRate.setText(String.valueOf(movie.vote_average));

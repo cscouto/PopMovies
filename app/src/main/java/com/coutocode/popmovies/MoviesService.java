@@ -18,10 +18,10 @@ public class MoviesService {
     }
 
     Call<MovieResponse> getMostPopular() {
-        return api.getMostPopularMovies(Constants.API_KEY);
+        return api.getMostPopularMovies(BuildConfig.MOVIE_DB_API_KEY);
     }
 
     Call<MovieResponse> getMostHighestRatedMovies() {
-        return api.getMostHighestRatedMovies(Constants.API_KEY);
+        return api.getMostHighestRatedMovies(BuildConfig.MOVIE_DB_API_KEY);
     }
 }

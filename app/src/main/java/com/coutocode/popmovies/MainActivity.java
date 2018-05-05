@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -42,7 +46,10 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
 
         moviesService = new MoviesService();
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
+
         mRecyclerView.setLayoutManager(layoutManager);
 
         progressBar.setVisibility(View.VISIBLE);

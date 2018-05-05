@@ -61,6 +61,8 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
             String path = IMAGE_BASE_URL + IMAGE_SIZE_500 + movie.poster_path;
             Picasso.with(itemView.getContext())
                     .load(path)
+                    .placeholder(R.drawable.noimage)
+                    .error(R.drawable.noimage)
                     .into(imageViewPoster);
 
             itemView.setOnClickListener(new View.OnClickListener() {
