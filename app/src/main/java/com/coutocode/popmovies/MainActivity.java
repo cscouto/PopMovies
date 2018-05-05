@@ -2,6 +2,8 @@ package com.coutocode.popmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
@@ -32,8 +35,29 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
     RecyclerView mRecyclerView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
 
     private MoviesService moviesService;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_most_popular:
+                    progressBar.setVisibility(View.VISIBLE);
+                    callPopularMovies();
+                    return true;
+                case  R.id.action_highest_rated:
+                    progressBar.setVisibility(View.VISIBLE);
+                    callHighestRatedMovies();
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,41 +68,18 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
 
         ButterKnife.bind(this);
 
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         moviesService = new MoviesService();
 
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
 
         mRecyclerView.setLayoutManager(layoutManager);
 
         progressBar.setVisibility(View.VISIBLE);
         callPopularMovies();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_most_popular:
-                progressBar.setVisibility(View.VISIBLE);
-                callPopularMovies();
-                return true;
-            case  R.id.action_highest_rated:
-                progressBar.setVisibility(View.VISIBLE);
-                callHighestRatedMovies();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void updateUI(ArrayList<Movie> movies){
