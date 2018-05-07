@@ -1,4 +1,4 @@
-package com.coutocode.popmovies;
+package com.coutocode.popmovies.apdater;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.android.flexbox.AlignSelf;
-import com.google.android.flexbox.FlexboxLayoutManager;
+import com.coutocode.popmovies.R;
+import com.coutocode.popmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,14 +21,14 @@ import static com.coutocode.popmovies.Constants.IMAGE_SIZE_500;
 
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder>{
 
-    interface ItemClick {
+    public interface ItemClick {
         void clickedItem(Movie movie);
     }
 
-    ArrayList<Movie> movies;
-    ItemClick delegate;
+    List<Movie> movies;
+    public ItemClick delegate;
 
-    PosterAdapter(ArrayList<Movie> movies){
+    public PosterAdapter(List<Movie> movies){
         this.movies = movies;
     }
 
@@ -36,7 +36,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.poster_item, null);
+                .inflate(R.layout.poster_item, parent, false);
         return new ViewHolder(view);
     }
 

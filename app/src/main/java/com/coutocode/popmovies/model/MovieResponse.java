@@ -1,4 +1,4 @@
-package com.coutocode.popmovies;
+package com.coutocode.popmovies.model;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ public class MovieResponse {
     String page;
     String total_results;
     String total_pages;
-    List<Movie> results;
+    public List<Movie> results;
 
     MovieResponse(String page, String total_results, String total_pages, List<Movie> results){
         this.page = page;

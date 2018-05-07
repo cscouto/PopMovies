@@ -1,4 +1,4 @@
-package com.coutocode.popmovies;
+package com.coutocode.popmovies.model;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
@@ -8,19 +8,19 @@ import java.util.List;
 
 @SuppressLint("ParcelCreator")
 public class Movie implements Parcelable {
-    int id;
+    public int id;
     boolean video;
-    float vote_average;
-    String title;
+    public float vote_average;
+    public String title;
     double popularity;
-    String poster_path;
+    public String poster_path;
     String original_language;
     String original_title;
     List<Integer> genre_ids;
     String backdrop_path;
     boolean adult;
-    String overview;
-    String release_date;
+    public String overview;
+    public String release_date;
 
     Movie(int id, boolean video, float vote_average, String title, double popularity,
           String poster_path, String original_language,  String original_title,
@@ -41,7 +41,7 @@ public class Movie implements Parcelable {
         this.release_date = release_date;
     }
 
-    protected Movie(Parcel in) {
+    public Movie(Parcel in) {
         id = in.readInt();
         video = in.readByte() != 0;
         vote_average = in.readFloat();

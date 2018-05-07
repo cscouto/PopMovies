@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -81,6 +81,40 @@
             android:text="TextView"
             android:textColor="@android:color/white"
             android:textSize="@dimen/info" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_weight="0"
+            android:paddingLeft="@dimen/padding_left"
+            android:text="@string/trailers"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title"
+            android:textStyle="bold|italic" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewTrailer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_weight="0"
+            android:paddingLeft="@dimen/padding_left"
+            android:text="@string/reviews"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title"
+            android:textStyle="bold|italic" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

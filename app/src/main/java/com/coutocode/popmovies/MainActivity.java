@@ -4,24 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.coutocode.popmovies.apdater.PosterAdapter;
+import com.coutocode.popmovies.model.Movie;
+import com.coutocode.popmovies.model.MovieResponse;
 import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
         callPopularMovies();
     }
 
-    private void updateUI(ArrayList<Movie> movies){
+    private void updateUI(List<Movie> movies){
         progressBar.setVisibility(View.GONE);
         PosterAdapter adapter = new PosterAdapter(movies);
         adapter.delegate = this;
@@ -90,12 +88,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
     }
 
     private void callPopularMovies(){
-        Call call = moviesService.getMostPopular();
+        Call call = moviesService.listMostPopular();
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()){
-                    updateUI((ArrayList<Movie>) response.body().results);
+                    updateUI(response.body().results);
                 }else{
                     Toast.makeText(MainActivity.this,
                             response.message(), Toast.LENGTH_LONG).show();
@@ -112,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
     }
 
     private void callHighestRatedMovies(){
-        Call call = moviesService.getMostHighestRatedMovies();
+        Call call = moviesService.listMostHighestRatedMovies();
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()){
-                    updateUI((ArrayList<Movie>) response.body().results);
+                    updateUI(response.body().results);
                 }else{
                     Toast.makeText(MainActivity.this,
                             response.message(), Toast.LENGTH_LONG).show();
