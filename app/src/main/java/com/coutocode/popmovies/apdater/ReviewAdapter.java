@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder>{
 
-    List<Review> reviews;
+    private final List<Review> reviews;
 
     public ReviewAdapter(List<Review> reviews){
         this.reviews = reviews;
@@ -47,12 +47,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         @BindView(R.id.tvContent)
         TextView tvContent;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(final Review review){
+        void bindView(final Review review){
            tvAuthor.setText(review.author);
            tvContent.setText(review.content);
         }

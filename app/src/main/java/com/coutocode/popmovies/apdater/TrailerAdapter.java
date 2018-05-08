@@ -21,8 +21,8 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
         void clickedItem(Trailer trailer);
     }
 
-    List<Trailer> trailers;
-    ItemClick delegate;
+    private final List<Trailer> trailers;
+    private ItemClick delegate;
 
     public TrailerAdapter(List<Trailer> trailers){
         this.trailers = trailers;
@@ -50,12 +50,12 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
         @BindView(R.id.tvTitle)
         TextView tvTitle;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(final Trailer trailer){
+        void bindView(final Trailer trailer){
 
             tvTitle.setText(trailer.name);
 

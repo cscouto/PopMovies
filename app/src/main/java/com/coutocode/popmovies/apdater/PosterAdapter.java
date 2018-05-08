@@ -25,7 +25,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
         void clickedItem(Movie movie);
     }
 
-    List<Movie> movies;
+    private final List<Movie> movies;
     public ItemClick delegate;
 
     public PosterAdapter(List<Movie> movies){
@@ -54,12 +54,12 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.ViewHolder
         @BindView(R.id.imageViewPoster)
         ImageView imageViewPoster;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(final Movie movie){
+        void bindView(final Movie movie){
             String path = IMAGE_BASE_URL + IMAGE_SIZE_500 + movie.poster_path;
             Picasso.with(itemView.getContext())
                     .load(path)

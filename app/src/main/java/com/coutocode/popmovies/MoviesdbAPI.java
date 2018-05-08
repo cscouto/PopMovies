@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface MoviesdbAPI {
+interface MoviesdbAPI {
 
     @GET("movie/popular")
     Call<MovieResponse> listMostPopularMovies(@Query("api_key") String key);

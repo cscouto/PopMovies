@@ -1,8 +1,8 @@
 package com.coutocode.popmovies.model;
 
 public class Review {
-    public String author;
-    public String content;
+    public final String author;
+    public final String content;
 
     Review(String author, String content){
         this.author = author;

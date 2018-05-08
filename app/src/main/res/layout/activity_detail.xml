@@ -2,7 +2,6 @@
 
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="TextView"
+                android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title"
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_column"
                 android:layout_weight="0"
-                android:text="TextView"
+                android:text=""
                 android:textColor="@color/gold"
                 android:textSize="@dimen/title"
                 android:textStyle="bold" />
@@ -54,7 +53,7 @@
             android:id="@+id/textViewRelease"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/grey"
             android:textSize="@dimen/detail_info" />
@@ -78,7 +77,7 @@
             android:layout_weight="1"
             android:paddingLeft="@dimen/padding_left"
             android:paddingRight="@dimen/padding_right"
-            android:text="TextView"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="@dimen/info" />
 

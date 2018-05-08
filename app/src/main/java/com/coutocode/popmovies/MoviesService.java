@@ -8,9 +8,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MoviesService {
+class MoviesService {
 
-    MoviesdbAPI api;
+    private final MoviesdbAPI api;
 
     MoviesService(){
        Retrofit retrofit = new Retrofit

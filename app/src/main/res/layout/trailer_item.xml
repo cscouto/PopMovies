@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/padding_left"
-            android:text="TextView"
+            android:text=""
             android:textColor="@android:color/white" />
     </LinearLayout>
 

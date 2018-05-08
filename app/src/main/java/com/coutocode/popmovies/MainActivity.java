@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
 
     private MoviesService moviesService;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override

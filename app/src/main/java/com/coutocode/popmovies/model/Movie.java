@@ -8,19 +8,19 @@ import java.util.List;
 
 @SuppressLint("ParcelCreator")
 public class Movie implements Parcelable {
-    public int id;
-    boolean video;
-    public float vote_average;
-    public String title;
-    double popularity;
-    public String poster_path;
-    String original_language;
-    String original_title;
-    List<Integer> genre_ids;
-    String backdrop_path;
-    boolean adult;
-    public String overview;
-    public String release_date;
+    public final int id;
+    private final boolean video;
+    public final float vote_average;
+    public final String title;
+    private final double popularity;
+    public final String poster_path;
+    private final String original_language;
+    private final String original_title;
+    private List<Integer> genre_ids;
+    private final String backdrop_path;
+    private final boolean adult;
+    public final String overview;
+    public final String release_date;
 
     Movie(int id, boolean video, float vote_average, String title, double popularity,
           String poster_path, String original_language,  String original_title,
