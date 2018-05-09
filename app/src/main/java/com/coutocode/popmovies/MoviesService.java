@@ -1,5 +1,6 @@
 package com.coutocode.popmovies;
 
+import com.coutocode.popmovies.model.Movie;
 import com.coutocode.popmovies.model.MovieResponse;
 import com.coutocode.popmovies.model.ReviewResponse;
 import com.coutocode.popmovies.model.TrailerResponse;
@@ -35,5 +36,9 @@ class MoviesService {
 
     Call<ReviewResponse> listReviews(String movieId){
         return  api.listReviews(movieId, BuildConfig.MOVIE_DB_API_KEY);
+    }
+
+    Call<Movie> getMovie(String movieId){
+        return  api.getMovie(movieId, BuildConfig.MOVIE_DB_API_KEY);
     }
 }

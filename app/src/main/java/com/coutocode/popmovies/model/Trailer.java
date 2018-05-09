@@ -1,13 +1,11 @@
 package com.coutocode.popmovies.model;
 
 public class Trailer {
-    private final String id;
+    public final String key;
     public final String name;
-    private final String site;
 
-    Trailer(String id, String name, String site){
-        this.id = id;
+    Trailer(String key, String name){
+        this.key = key;
         this.name = name;
-        this.site = site;
     }
 }

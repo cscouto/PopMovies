@@ -1,6 +1,9 @@
 package com.coutocode.popmovies;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,12 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.coutocode.popmovies.apdater.PosterAdapter;
+import com.coutocode.popmovies.data.MovieContract;
 import com.coutocode.popmovies.model.Movie;
 import com.coutocode.popmovies.model.MovieResponse;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
     BottomNavigationView navigation;
 
     private MoviesService moviesService;
+    private final String KEY_STATE = "state";
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
                 case  R.id.action_highest_rated:
                     progressBar.setVisibility(View.VISIBLE);
                     callHighestRatedMovies();
+                    return true;
+                case  R.id.action_favorites:
+                    progressBar.setVisibility(View.VISIBLE);
+                    List<Movie> movies = loadFavoriteMovies();
+                    updateUI(movies);
                     return true;
             }
             return false;
@@ -77,7 +88,20 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
         mRecyclerView.setLayoutManager(layoutManager);
 
         progressBar.setVisibility(View.VISIBLE);
-        callPopularMovies();
+
+        if (savedInstanceState != null) {
+            int state = savedInstanceState.getInt(KEY_STATE);
+            navigation.setSelectedItemId(state);
+        }else{
+            callPopularMovies();
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_STATE, navigation.getSelectedItemId());
+        super.onSaveInstanceState(outState);
     }
 
     private void updateUI(List<Movie> movies){
@@ -131,10 +155,39 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Ite
         });
     }
 
+    private ArrayList<Movie> loadFavoriteMovies(){
+        ArrayList<Movie> movies = new ArrayList();
+        Uri uriMovies = Uri.parse(String.valueOf(MovieContract.MovieEntry.CONTENT_URI));
+        ContentResolver resolver = getContentResolver();
+        Cursor cursor = resolver.query(uriMovies,null,null,null,null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ID));
+                String original_title = cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ORIGINAL_TITLE));
+                String poster_path = cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_POSTER_PATH));
+                movies.add(new Movie(id, original_title, poster_path));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return movies;
+    }
+
     @Override
     public void clickedItem(Movie movie) {
         Intent intentToDetail = new Intent(this, DetailActivity.class);
-        intentToDetail.putExtra(Constants.DETAIL_EXTRA_KEY, movie);
+
+        boolean isFavorite = false;
+
+        List<Movie> movies = loadFavoriteMovies();
+
+        for(Movie m: movies) {
+            if (m.id == movie.id) {
+                isFavorite = true;
+                break;
+            }
+        }
+        intentToDetail.putExtra(Constants.FAVORITE_EXTRA_KEY, isFavorite);
+        intentToDetail.putExtra(Constants.MOVIE_ID_EXTRA_KEY, movie.id);
         startActivity(intentToDetail);
     }
 }

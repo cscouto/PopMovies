@@ -1,5 +1,6 @@
 package com.coutocode.popmovies;
 
+import com.coutocode.popmovies.model.Movie;
 import com.coutocode.popmovies.model.MovieResponse;
 import com.coutocode.popmovies.model.ReviewResponse;
 import com.coutocode.popmovies.model.TrailerResponse;
@@ -22,5 +23,8 @@ interface MoviesdbAPI {
 
     @GET("movie/{id}/reviews")
     Call<ReviewResponse> listReviews(@Path("id") String movieId, @Query("api_key") String key);
+
+    @GET("movie/{id}")
+    Call<Movie> getMovie(@Path("id") String movieId, @Query("api_key") String key);
 
 }

@@ -17,12 +17,12 @@ import butterknife.ButterKnife;
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHolder>{
 
-    interface ItemClick {
+    public interface ItemClick {
         void clickedItem(Trailer trailer);
     }
 
     private final List<Trailer> trailers;
-    private ItemClick delegate;
+    public ItemClick delegate;
 
     public TrailerAdapter(List<Trailer> trailers){
         this.trailers = trailers;

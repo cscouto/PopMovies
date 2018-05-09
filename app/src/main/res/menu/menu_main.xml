@@ -2,14 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.coutocode.popmovies.MainActivity">
+
     <item
         android:id="@+id/action_most_popular"
         android:orderInCategory="1"
         android:title="@string/most_popular"
+        android:icon="@drawable/icon_popular"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_highest_rated"
         android:orderInCategory="2"
         android:title="@string/highest_rated"
+        android:icon="@drawable/icon_star"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_favorites"
+        android:orderInCategory="2"
+        android:title="@string/favorites"
+        android:icon="@drawable/icon_favorite"
         app:showAsAction="never" />
 </menu>

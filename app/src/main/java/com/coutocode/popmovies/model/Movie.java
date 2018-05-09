@@ -9,18 +9,18 @@ import java.util.List;
 @SuppressLint("ParcelCreator")
 public class Movie implements Parcelable {
     public final int id;
-    private final boolean video;
-    public final float vote_average;
-    public final String title;
-    private final double popularity;
+    private boolean video;
+    public float vote_average;
+    public String title;
+    private double popularity;
     public final String poster_path;
-    private final String original_language;
-    private final String original_title;
+    private String original_language;
+    public final String original_title;
     private List<Integer> genre_ids;
-    private final String backdrop_path;
-    private final boolean adult;
-    public final String overview;
-    public final String release_date;
+    private String backdrop_path;
+    private boolean adult;
+    public String overview;
+    public String release_date;
 
     Movie(int id, boolean video, float vote_average, String title, double popularity,
           String poster_path, String original_language,  String original_title,
@@ -41,7 +41,7 @@ public class Movie implements Parcelable {
         this.release_date = release_date;
     }
 
-    public Movie(Parcel in) {
+    private Movie(Parcel in) {
         id = in.readInt();
         video = in.readByte() != 0;
         vote_average = in.readFloat();
@@ -67,6 +67,12 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public Movie(int id, String original_title, String poster_path) {
+        this.id = id;
+        this.original_title = original_title;
+        this.poster_path = poster_path;
+    }
 
     @Override
     public int describeContents() {
